@@ -3,10 +3,10 @@ import requests
 import time
 
 def getWeather(canvas):
-    city = texfield.get()
+    city = textfield.get()
     api= "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b0fb99f8f1ee0d5172b69e5137d5bc79"
     json_data =requests.get(api).json()
-    condition = json_data['Weather'][0]['main']
+    condition = json_data['weather'][0]['main']
     temp = int(json_data['main']['temp'] - 273.15)
     min_temp = int(json_data['main']['temp_min'] - 273.15)
     max_temp = int(json_data['main']['temp_max'] - 273.15)
@@ -16,7 +16,7 @@ def getWeather(canvas):
     sunrise = time.strftime("%I:%M:%S", time.gmtime(json_data['sys']['sunrise'] - 21600))
     sunset = time.strftime("%I:%M:%S", time.gmtime(json_data['sys']['sunset'] - 21600))
 
-    final_info = condition + "\n" + str(temp) + "degreesymoblC"
+    final_info = condition + "\n" + str(temp) + "\N{DEGREE SIGN}"
     final_data = "\n" + "Max Temp: " + str(max_temp) + "\n" + "Min Temp: " + str(min_temp) + "\n" + "Pressure: " + str(pressure) + "\n" + "Humidity>" + str(humidity) + "\n" + "Wind speed: " + str(wind) + "\n" + "Sunrise: " + sunrise + "\n" + "Sunset: " + sunset
     label1.config(text = final_info)
     label2.config(text = final_data)
@@ -33,7 +33,7 @@ textfield.pack(pady = 20)
 textfield.focus()
 textfield.bind('<Return>', getWeather)
 
-label1 = tk.Lable(canvas, font = t)
+label1 = tk.Label(canvas, font = t)
 label1.pack()
 label2 = tk.Label(canvas, font = f)
 label2.pack()
